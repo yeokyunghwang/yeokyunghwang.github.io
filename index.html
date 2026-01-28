@@ -11,7 +11,7 @@
         :root {
             --primary: #2d3748;
             --secondary: #4a5568;
-            --accent: #10b981;
+            --accent: #e94560;
             --light: #f7fafc;
             --white: #ffffff;
             --text: #1a202c;
@@ -33,7 +33,7 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             color: var(--text);
             line-height: 1.7;
-            background: var(--white);
+            background: #fafaf8;
         }
 
         /* Navigation */
@@ -96,8 +96,8 @@
         }
 
         .profile-photo {
-            width: 180px;
-            height: 180px;
+            width: 300px;
+            height: 300px;
             border-radius: 50%;
             background: var(--light);
             margin: 0 auto 2rem;
@@ -194,7 +194,14 @@
             padding: 5rem 2rem;
             max-width: 1100px;
             margin: 0 auto;
-            animation: fadeIn 1s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .section-title {
@@ -202,19 +209,28 @@
             font-weight: 600;
             margin-bottom: 0.5rem;
             color: var(--text);
+            text-align: center;
         }
 
         .section-subtitle {
             font-size: 1.05rem;
             color: var(--text-light);
             margin-bottom: 3rem;
+            text-align: center;
         }
 
         /* Research Interests */
         .research-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 2rem;
+        }
+
+        .research-category {
+            background: var(--white);
+            padding: 2rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
         }
 
         .research-category h3 {
@@ -229,7 +245,7 @@
         }
 
         .research-category li {
-            padding: 0.6rem 0;
+            padding: 0.4rem 0; 
             padding-left: 1.5rem;
             position: relative;
             color: var(--secondary);
@@ -250,27 +266,36 @@
             margin-bottom: 1.5rem;
             border: 1px solid var(--border);
             border-radius: 12px;
+            position: relative;
+        }
+
+        .pub-status-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.4rem 0.9rem;
+            background: #fef3c7;
+            color: #92400e;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
         .pub-item strong {
             color: var(--text);
         }
-
+        
         .pub-item a {
             color: var(--text);
             text-decoration: none;
             font-weight: 500;
             display: inline-block;
             margin-top: 0.8rem;
-            padding: 0.5rem 1.2rem;
-            border: 1px solid var(--border);
-            border-radius: 6px;
             font-size: 0.9rem;
-            transition: all 0.3s ease;
+            transition: color 0.3s ease;
         }
-
+        
         .pub-item a:hover {
-            border-color: var(--accent);
             color: var(--accent);
         }
 
@@ -317,34 +342,26 @@
             gap: 0.5rem;
         }
 
-        .status-badge {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            background: #ecfdf5;
-            color: var(--accent);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
         /* Projects & Awards */
         .two-column-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 3rem;
         }
 
         .column-title {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 600;
-            color: var(--text-light);
-            margin-bottom: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            color: var(--text);
+            margin-bottom: 1.5rem;
         }
 
         .item-card {
-            margin-bottom: 2rem;
+            background: var(--white);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
         }
 
         .item-card h4 {
@@ -414,14 +431,18 @@
         .timeline {
             position: relative;
             padding-left: 2rem;
+            background: var(--white);
+            padding: 2rem 2rem 2rem 3rem;
+            border: 1px solid var(--border);
+            border-radius: 12px;
         }
 
         .timeline::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
+            left: 1rem;
+            top: 2rem;
+            bottom: 2rem;
             width: 2px;
             background: var(--border);
         }
@@ -429,6 +450,10 @@
         .timeline-item {
             position: relative;
             margin-bottom: 3rem;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
         }
 
         .timeline-item::before {
@@ -525,15 +550,17 @@
             <li><a href="#publications">Publications</a></li>
             <li><a href="#conferences">Conferences</a></li>
             <li><a href="#projects">Projects & Awards</a></li>
-            <li><a href="#references">References</a></li>
             <li><a href="#education">Education</a></li>
+            <li><a href="#references">References</a></li>
         </ul>
     </nav>
 
     <!-- Hero Section -->
     <div class="hero">
         <div class="hero-content">
-            <div class="profile-photo">Photo</div>
+            <div class="profile-photo">
+               <img src="profile.jpg" alt="Yeokyung Hwang" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+           </div>
             <h1>Yeokyung Hwang</h1>
             <div class="subtitle">Ph.D. Candidate in Technology Management</div>
             <div class="affiliation">Seoul National University</div>
@@ -544,20 +571,20 @@
 
             <div class="hero-links">
                 <a href="mailto:durud1025@snu.ac.kr" class="hero-link primary">
-                    📧 Email
+                    Email
                 </a>
-                <a href="#" id="download-cv" class="hero-link">
-                    📄 CV
+                <a href="CV_Yeokyung_Hwang.pdf" download class="hero-link">
+                    CV
                 </a>
                 <a href="https://www.linkedin.com/in/yeokyung-hwang" target="_blank" class="hero-link">
-                    🔗 LinkedIn
+                    LinkedIn
                 </a>
             </div>
 
             <div class="hero-contact">
                 <a href="mailto:durud1025@snu.ac.kr">durud1025@snu.ac.kr</a>
-                <span>📞 +82 10 4487 7370</span>
-                <span>📍 Seoul, Korea</span>
+                <span>+82 10 4487 7370</span>
+                <span>Seoul, Korea</span>
             </div>
         </div>
     </div>
@@ -600,52 +627,48 @@
             <strong>Hwang Y.</strong>, Hwang J., Lee J.M.* (2025) <br>
             <em>How similar should collaborators be in inter-organizational learning: Optimal cognitive proximity and knowledge complexity.</em><br>
             <strong>PLoS One</strong>, 20(12): e0338402.
-            <a href="https://doi.org/10.1371/journal.pone.0338402" target="_blank">🔗 View Paper</a>
+            <a href="https://doi.org/10.1371/journal.pone.0338402" target="_blank">View Paper</a>
         </div>
 
         <div class="pub-item">
             Cha, H., <strong>Hwang, Y.</strong>, Hwang, J., & Lee, J.M.* (2026) <br>
             <em>Redefining the role of investors in South Korea's startup ecosystem: A network analysis and explainable AI approach.</em><br>
             <strong>Journal of Small Business Management</strong>, 1–34.
-            <a href="https://doi.org/10.1080/00472778.2025.2601681" target="_blank">🔗 View Paper</a>
+            <a href="https://doi.org/10.1080/00472778.2025.2601681" target="_blank">View Paper</a>
         </div>
 
         <h3 class="subsection-title">Working Papers</h3>
 
         <div class="pub-item">
+            <span class="pub-status-badge">Under Review</span>
             <strong>Hwang, Y.</strong><sup>†</sup>, Jeon, E.<sup>†</sup>, Balaci, A.T., Hwang, J., & Lee, J.H.* <br>
             <em>Who Invests Matters: A Multimodal Contrastive Learning Approach to Successful Startup–Investor Matching.</em><br>
-            <strong>Under Review</strong>, Information Processing & Management
+            Information Processing & Management
         </div>
 
         <div class="pub-item">
             <strong>Hwang, Y.</strong>, Hwang, J., & Jeong, D.* <br>
-            <em>The Conceptual Evolution of Artificial Intelligence: Structural and Semantic Dynamics Across Scientific and Social Domains.</em><br>
-            <strong>Working Paper</strong>
+            <em>The Conceptual Evolution of Artificial Intelligence: Structural and Semantic Dynamics Across Scientific and Social Domains.</em>
         </div>
 
         <div class="pub-item">
             <strong>Hwang, Y.</strong>, Hwang, J., & Lee, J.M.* <br>
-            <em>The Role of Actors in Mediating Niche-Regime Transitions in AI Socio-Technical Systems.</em><br>
-            <strong>Working Paper</strong>
+            <em>The Role of Actors in Mediating Niche-Regime Transitions in AI Socio-Technical Systems.</em>
         </div>
 
         <div class="pub-item">
             <strong>Hwang, Y.</strong>, Hwang, J., & Lee, J.M.* <br>
-            <em>How Actors Align Scientific and Social Conceptualizations of Artificial Intelligence.</em><br>
-            <strong>Working Paper</strong>
+            <em>How Actors Align Scientific and Social Conceptualizations of Artificial Intelligence.</em>
         </div>
 
         <div class="pub-item">
             Kim, K., Hwang, J., & <strong>Hwang, Y.</strong>* <br>
-            <em>Core Technological Portfolio, Organizational Knowledge Network, and Innovation Performance: Semiconductor Industry Analysis.</em><br>
-            <strong>Working Paper</strong>
+            <em>Core Technological Portfolio, Organizational Knowledge Network, and Innovation Performance: Semiconductor Industry Analysis.</em>
         </div>
 
         <div class="pub-item">
             <strong>Hwang, Y.</strong><sup>†</sup>, Moon, D.<sup>†</sup>, & Lim, S.<sup>†*</sup> <br>
-            <em>National AI Capability Beyond Scale: Portfolio Structure in Papers and Patents.</em><br>
-            <strong>Working Paper</strong>
+            <em>National AI Capability Beyond Scale: Portfolio Structure in Papers and Patents.</em>
         </div>
     </section>
 
@@ -658,9 +681,8 @@
             <h3>Socio-technical transition dynamics of AI technology: Utilizing news reports and academic papers</h3>
             <div class="conference-venue">34th IAMOT Conference, International Association for Management of Technology</div>
             <div class="conference-meta">
-                <span>📅 June 2025</span>
-                <span>📍 Vienna, Austria</span>
-                <span class="status-badge">Completed</span>
+                <span>June 2025</span>
+                <span>Vienna, Austria</span>
             </div>
         </div>
 
@@ -668,9 +690,8 @@
             <h3>The evolution of scientific knowledge and social discourse: A multi-layer network analysis of AI technologies</h3>
             <div class="conference-venue">2025 KSOI & TEMEP Spring Conference</div>
             <div class="conference-meta">
-                <span>📅 May 2025</span>
-                <span>📍 Seoul, Korea</span>
-                <span class="status-badge">Completed</span>
+                <span>May 2025</span>
+                <span>Seoul, Korea</span>
             </div>
         </div>
 
@@ -678,9 +699,8 @@
             <h3>The evolution of scientific knowledge and social discourse: A multi-layer network analysis of AI technologies</h3>
             <div class="conference-venue">The 10th Atlanta Conference on Science and Innovation Policy</div>
             <div class="conference-meta">
-                <span>📅 May 2025</span>
-                <span>📍 Atlanta, USA</span>
-                <span class="status-badge">Completed</span>
+                <span>May 2025</span>
+                <span>Atlanta, USA</span>
             </div>
         </div>
 
@@ -688,8 +708,7 @@
             <h3>Collaborative learning and optimal cognitive proximity: Moderating effect of knowledge complexity</h3>
             <div class="conference-venue">SEED 2024 (Poster Presentation)</div>
             <div class="conference-meta">
-                <span>📅 August 2024</span>
-                <span class="status-badge">Completed</span>
+                <span>August 2024</span>
             </div>
         </div>
 
@@ -697,9 +716,8 @@
             <h3>Socio-technical transition dynamics of AI technology: Utilizing news reports and academic papers</h3>
             <div class="conference-venue">2024 KSOI Fall Conference</div>
             <div class="conference-meta">
-                <span>📅 October 2024</span>
-                <span>📍 Seoul, Korea</span>
-                <span class="status-badge">Completed</span>
+                <span>October 2024</span>
+                <span>Seoul, Korea</span>
             </div>
         </div>
 
@@ -707,8 +725,7 @@
             <h3>Inter-organizational collaboration and optimal cognitive proximity: Moderating effect of knowledge complexity</h3>
             <div class="conference-venue">2023 IEEE International Conference on Technology Management, Operations and Decisions (ICTMOD)</div>
             <div class="conference-meta">
-                <span>📅 November 2023</span>
-                <span class="status-badge">Completed</span>
+                <span>November 2023</span>
             </div>
         </div>
 
@@ -716,9 +733,8 @@
             <h3>Redefining the role of investors for startup survival in the post-COVID era: A network analysis and explainable AI (XAI) approach</h3>
             <div class="conference-venue">2023 KSOI Fall Conference</div>
             <div class="conference-meta">
-                <span>📅 October 2023</span>
-                <span>📍 Seoul, Korea</span>
-                <span class="status-badge">Completed</span>
+                <span>October 2023</span>
+                <span>Seoul, Korea</span>
             </div>
         </div>
 
@@ -726,9 +742,8 @@
             <h3>Metaverse education model in smart city</h3>
             <div class="conference-venue">Seoul Smart City Leaders Forum 2022</div>
             <div class="conference-meta">
-                <span>📅 November 2022</span>
-                <span>📍 Seoul, Korea</span>
-                <span class="status-badge">Completed</span>
+                <span>November 2022</span>
+                <span>Seoul, Korea</span>
             </div>
         </div>
 
@@ -736,8 +751,7 @@
             <h3>Applying the theory of affordance to the design of water purification facilities: Focus on Binh Dinh, Vietnam</h3>
             <div class="conference-venue">Green Smart Development and Vision 2018 (Poster)</div>
             <div class="conference-meta">
-                <span>📅 November 2018</span>
-                <span class="status-badge">Completed</span>
+                <span>November 2018</span>
             </div>
         </div>
 
@@ -745,8 +759,7 @@
             <h3>2018 Summer SNU Corps in Vietnam: A case study of overseas volunteering program based on appropriate technology</h3>
             <div class="conference-venue">International Conference on Energy and Sustainability</div>
             <div class="conference-meta">
-                <span>📅 October 2018</span>
-                <span class="status-badge">Completed</span>
+                <span>October 2018</span>
             </div>
         </div>
     </section>
@@ -758,7 +771,7 @@
         <div class="two-column-section">
             <!-- Projects Column -->
             <div>
-                <div class="column-title">🔬 Research Projects</div>
+                <div class="column-title">Research Projects</div>
                 
                 <div class="item-card">
                     <h4>BK21 International Joint Research</h4>
@@ -783,11 +796,17 @@
                     <div class="item-meta">Curriculum Designer • Apr 2022 - Feb 2023</div>
                     <p>ICT-based digital capacity-building program supported by NIPA</p>
                 </div>
+
+                <div class="item-card">
+                    <h4>Global Research Internship</h4>
+                    <div class="item-meta">Research Intern • Jan 2020 - May 2020</div>
+                    <p>Polytechnique Montréal, Department of Mechanical Engineering, Montréal, QC</p>
+                </div>
             </div>
 
             <!-- Awards Column -->
             <div>
-                <div class="column-title">🏆 Awards & Honors</div>
+                <div class="column-title">Awards & Honors</div>
                 
                 <div class="item-card">
                     <h4>Best Student Paper Award</h4>
@@ -832,34 +851,6 @@
         </div>
     </section>
 
-    <!-- References -->
-    <section id="references">
-        <h2 class="section-title">References</h2>
-        
-        <div class="references-grid">
-            <div class="reference-card">
-                <h4>Dr. Junseok Hwang</h4>
-                <p class="ref-title">Professor</p>
-                <p class="ref-org">Technology Management, Economics and Policy Program<br>Seoul National University, Republic of Korea</p>
-                <a href="mailto:junhwang@snu.ac.kr">junhwang@snu.ac.kr</a>
-            </div>
-
-            <div class="reference-card">
-                <h4>Dr. Junmin Lee</h4>
-                <p class="ref-title">Assistant Professor</p>
-                <p class="ref-org">Department of Public Policy and Management<br>Pusan National University, Republic of Korea</p>
-                <a href="mailto:junminlee@pusan.ac.kr">junminlee@pusan.ac.kr</a>
-            </div>
-
-            <div class="reference-card">
-                <h4>Dr. Dawoon Jeong</h4>
-                <p class="ref-title">Postdoctoral Fellow</p>
-                <p class="ref-org">Knowledge Lab, Department of Sociology<br>University of Chicago, USA</p>
-                <a href="mailto:dawoonjeong@uchicago.edu">dawoonjeong@uchicago.edu</a>
-            </div>
-        </div>
-    </section>
-
     <!-- Education -->
     <section id="education">
         <h2 class="section-title">Education</h2>
@@ -897,16 +888,33 @@
                     <h4>Seoul National University, Seoul, Korea</h4>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="timeline-item">
-                <div class="timeline-date">Jan 2020 – May 2020</div>
-                <div class="timeline-content">
-                    <h3>Global Research Internship</h3>
-                    <h4>Polytechnique Montréal, Department of Mechanical Engineering, Montréal, QC</h4>
-                    <ul>
-                        <li>Relevant Courses – Creative Engineering Design, Engineering Mathematics, Solid Mechanics, Dynamics, Introduction to Robotics</li>
-                    </ul>
-                </div>
+    <!-- References -->
+    <section id="references">
+        <h2 class="section-title">References</h2>
+        
+        <div class="references-grid">
+            <div class="reference-card">
+                <h4>Dr. Junseok Hwang</h4>
+                <p class="ref-title">Professor</p>
+                <p class="ref-org">Technology Management, Economics and Policy Program<br>Seoul National University, Republic of Korea</p>
+                <a href="mailto:junhwang@snu.ac.kr">junhwang@snu.ac.kr</a>
+            </div>
+
+            <div class="reference-card">
+                <h4>Dr. Junmin Lee</h4>
+                <p class="ref-title">Assistant Professor</p>
+                <p class="ref-org">Department of Public Policy and Management<br>Pusan National University, Republic of Korea</p>
+                <a href="mailto:junminlee@pusan.ac.kr">junminlee@pusan.ac.kr</a>
+            </div>
+
+            <div class="reference-card">
+                <h4>Dr. Dawoon Jeong</h4>
+                <p class="ref-title">Postdoctoral Fellow</p>
+                <p class="ref-org">Knowledge Lab, Department of Sociology<br>University of Chicago, USA</p>
+                <a href="mailto:dawoonjeong@uchicago.edu">dawoonjeong@uchicago.edu</a>
             </div>
         </div>
     </section>
@@ -917,6 +925,25 @@
     </footer>
 
     <script>
+        // Intersection Observer for smooth scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
         // Show nav on scroll
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('nav');
