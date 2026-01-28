@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeokyung Hwang</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #e94560;
+            --light: #f8f8f8;
+            --text: #2d2d2d;
+            --text-light: #666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(233, 69, 96, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(233, 69, 96, 0.15) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--light);
+            z-index: 2;
+            padding: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.3s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+        }
+
+        .hero .tagline {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero .specialty {
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 1.5s, bounce 2s ease-in-out infinite 2s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 0.7; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        .scroll-indicator::before {
+            content: '↓';
+            color: var(--light);
+            font-size: 2rem;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        nav.visible {
+            transform: translateY(0);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: var(--accent);
+        }
+
+        /* About Section */
+        #about {
+            background: var(--light);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 2rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .interests {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .interests h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .interests ul {
+            list-style: none;
+        }
+
+        .interests li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-light);
+        }
+
+        .interests li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Publications Section */
+        #publications {
+            background: white;
+        }
+
+        .pub-item {
+            background: var(--light);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pub-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .pub-item strong {
+            color: var(--primary);
+        }
+
+        .pub-item a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .pub-item a:hover {
+            transform: translateX(5px);
+        }
+
+        /* Awards Section */
+        #awards {
+            background: var(--primary);
+            color: var(--light);
+        }
+
+        #awards .section-title {
+            color: var(--light);
+        }
+
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .award-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .award-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .award-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .award-card .year {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: var(--light);
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            text-align: center;
+        }
+
+        .contact-item .icon {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: var(--light);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="nav">
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#awards">Awards</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <div class="specialty">Computational Social Science Researcher</div>
+            <h1>Yeokyung Hwang</h1>
+            <div class="tagline">Exploring AI Innovation Ecosystems Through Network Science</div>
+        </div>
+        <div class="scroll-indicator"></div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>I'm a Ph.D. candidate in Technology Management, Economics and Policy at Seoul National University, specializing in computational social science and network analysis.</p>
+                <p>My research focuses on understanding how knowledge networks evolve in AI and technology innovation ecosystems, using advanced computational methods to analyze socio-technical transitions.</p>
+                <p>I combine network science, natural language processing, and econometric analysis to study how actors, ideas, and innovations interact in complex systems.</p>
+            </div>
+            <div>
+                <div class="interests">
+                    <h3>Research Topics</h3>
+                    <ul>
+                        <li>Computational Social Science</li>
+                        <li>Knowledge Networks</li>
+                        <li>Network Science</li>
+                        <li>Socio-technical Systems</li>
+                        <li>Economic Complexity</li>
+                    </ul>
+                </div>
+                <div class="interests" style="margin-top: 2rem;">
+                    <h3>Methodologies</h3>
+                    <ul>
+                        <li>Complex Network Analysis</li>
+                        <li>Patent Analysis</li>
+                        <li>Natural Language Processing</li>
+                        <li>Representation Learning</li>
+                        <li>Econometric Analysis</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section id="publications">
+        <h2 class="section-title">Featured Publications</h2>
+        
+        <div class="pub-item">
+            <strong>Hwang Y.</strong>, Hwang J., Lee J.M. (2025) <br>
+            <em>How similar should collaborators be in inter-organizational learning: Optimal cognitive proximity and knowledge complexity.</em><br>
+            PLoS One, 20(12): e0338402.
+            <a href="https://doi.org/10.1371/journal.pone.0338402" target="_blank">View Publication →</a>
+        </div>
+
+        <div class="pub-item">
+            Cha, H., <strong>Hwang, Y.</strong>, Hwang, J., & Lee, J.M. (2026) <br>
+            <em>Redefining the role of investors in South Korea's startup ecosystem: A network analysis and explainable AI approach.</em><br>
+            Journal of Small Business Management, 1–34.
+            <a href="https://doi.org/10.1080/00472778.2025.2601681" target="_blank">View Publication →</a>
+        </div>
+
+        <div class="pub-item">
+            <strong>Hwang, Y.</strong>, Jeon, E., Balaci, A.T., Hwang, J., & Lee, J.H. <br>
+            <em>Who Invests Matters: A Multimodal Contrastive Learning Approach to Successful Startup–Investor Matching.</em><br>
+            Under Review, Information Processing & Management
+        </div>
+
+        <div class="pub-item">
+            <strong>Hwang, Y.</strong>, Hwang, J., & Jeong, D. <br>
+            <em>The Conceptual Evolution of Artificial Intelligence: Structural and Semantic Dynamics Across Scientific and Social Domains.</em><br>
+            Working Paper
+        </div>
+    </section>
+
+    <!-- Awards Section -->
+    <section id="awards">
+        <h2 class="section-title">Recent Awards</h2>
+        <div class="awards-grid">
+            <div class="award-card">
+                <h3>Best Student Paper Award</h3>
+                <div class="year">2025 IAMOT Conference</div>
+                <p>Socio-technical Transitions in the AI Innovation Ecosystem: A Multi-layer Network Analysis of News and Academic Discourse</p>
+            </div>
+
+            <div class="award-card">
+                <h3>Best Paper Award</h3>
+                <div class="year">2025 KSOI & TEMEP Spring Conference</div>
+                <p>The Evolution of Scientific Knowledge and Social Discourse: A Multi-layer Network Analysis of AI Technologies</p>
+            </div>
+
+            <div class="award-card">
+                <h3>Grand Prize</h3>
+                <div class="year">13th Korean National Diplomatic Academy, 2024</div>
+                <p>Clustering-Based National AI Science & Tech Innovation Strategy</p>
+            </div>
+
+            <div class="award-card">
+                <h3>Best Paper Presentation Award</h3>
+                <div class="year">2024 KSOI Fall Conference</div>
+                <p>Socio-technical Transition Dynamics of AI Technology</p>
+            </div>
+
+            <div class="award-card">
+                <h3>Seoul Mayor's Award</h3>
+                <div class="year">WeGO Smart City Champions 2022</div>
+                <p>Metaverse Education Model in Smart City</p>
+            </div>
+
+            <div class="award-card">
+                <h3>Best Paper Presentation Award</h3>
+                <div class="year">2023 KSOI Fall Conference</div>
+                <p>Redefining the Role of Investors for Startup Survival</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <div class="icon">📧</div>
+                <a href="mailto:durud1025@snu.ac.kr">durud1025@snu.ac.kr</a>
+            </div>
+            <div class="contact-item">
+                <div class="icon">🔗</div>
+                <a href="https://www.linkedin.com/in/yeokyung-hwang" target="_blank">LinkedIn</a>
+            </div>
+            <div class="contact-item">
+                <div class="icon">📍</div>
+                <div>Seoul National University<br>Seoul, Korea</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Yeokyung Hwang. Last updated January 2026.</p>
+    </footer>
+
+    <script>
+        // Scroll animations
+        const sections = document.querySelectorAll('section');
+        const nav = document.getElementById('nav');
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Show nav on scroll
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                nav.classList.add('visible');
+            } else {
+                nav.classList.remove('visible');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
