@@ -1062,19 +1062,25 @@
             });
         });
 
-        // Email copy functionality
+        // Email copy functionality - fallback method
         const emailButton = document.getElementById('email-copy');
         if (emailButton) {
             emailButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 const email = 'durud1025@snu.ac.kr';
                 
-                console.log('Email button clicked!'); // 디버깅용
+                // 임시 textarea 생성 방식 (모든 브라우저에서 작동)
+                const tempInput = document.createElement('textarea');
+                tempInput.value = email;
+                tempInput.style.position = 'fixed';
+                tempInput.style.opacity = '0';
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                tempInput.setSelectionRange(0, 99999); // 모바일 대응
                 
-                // 클립보드에 복사
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(email).then(function() {
-                        console.log('Email copied!'); // 디버깅용
+                try {
+                    const successful = document.execCommand('copy');
+                    if (successful) {
                         // 성공 메시지 표시
                         const button = emailButton;
                         const originalText = button.textContent.trim();
@@ -1086,21 +1092,17 @@
                             button.textContent = originalText;
                             button.style.background = 'var(--text)';
                         }, 2000);
-                    }).catch(function(err) {
-                        console.error('Copy failed:', err); // 디버깅용
-                        // 복사 실패 시 대체 방법
+                    } else {
                         alert('Email: ' + email);
-                    });
-                } else {
-                    // clipboard API를 지원하지 않는 경우
+                    }
+                } catch (err) {
                     alert('Email: ' + email);
                 }
+                
+                document.body.removeChild(tempInput);
             });
-        } else {
-            console.error('Email button not found!'); // 디버깅용
         }
     });
-        });
     </script>
 </body>
 </html>
