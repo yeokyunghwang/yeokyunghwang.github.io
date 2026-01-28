@@ -662,7 +662,8 @@
             </div>
 
             <div class="hero-links">
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=durud1025@snu.ac.kr" target="_blank" class="hero-link primary email">
+                
+                <a href="#" id="email-copy" class="hero-link primary email">
                     Email
                 </a>
                 <a href="CV_Yeokyung_Hwang.pdf" download class="hero-link cv">
@@ -1065,6 +1066,30 @@
         document.getElementById('download-cv').addEventListener('click', function(e) {
             e.preventDefault();
             alert('To download the CV as PDF, please use your browser\'s print function (Ctrl/Cmd + P) and select "Save as PDF".');
+        });
+
+        // Email copy functionality
+        document.getElementById('email-copy').addEventListener('click', function(e) {
+            e.preventDefault();
+            const email = 'durud1025@snu.ac.kr';
+            
+            // 클립보드에 복사
+            navigator.clipboard.writeText(email).then(function() {
+                // 성공 메시지 표시
+                const button = e.currentTarget;
+                const originalText = button.textContent;
+                button.textContent = 'Email Copied!';
+                button.style.background = 'var(--accent)';
+                
+                // 2초 후 원래 상태로 복구
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.style.background = 'var(--text)';
+                }, 2000);
+            }).catch(function(err) {
+                // 복사 실패 시 대체 방법
+                alert('Email: ' + email);
+            });
         });
     </script>
 </body>
