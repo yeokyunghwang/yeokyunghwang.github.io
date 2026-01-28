@@ -1019,10 +1019,12 @@
             const button = e.target;
             button.textContent = 'Email Copied!';
             button.style.background = '#e94560';
+            button.style.borderColor = '#e94560';  // border 색상 추가
             
             setTimeout(function() {
                 button.textContent = 'Email';
                 button.style.background = '#1a202c';
+                button.style.borderColor = '#1a202c';  // border 색상 복구
             }, 2000);
         }
     
